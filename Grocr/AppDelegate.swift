@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]? = [:]) -> Bool {
     FIRApp.configure()
+    FIRDatabase.database().persistenceEnabled = true
     return true
   }
 
