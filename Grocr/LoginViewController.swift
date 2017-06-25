@@ -33,7 +33,8 @@ class LoginViewController: UIViewController {
   
   // MARK: Actions
   @IBAction func loginDidTouch(_ sender: AnyObject) {
-    performSegue(withIdentifier: loginToList, sender: nil)
+//    performSegue(withIdentifier: loginToList, sender: nil)
+    FIRAuth.auth()!.signIn(withEmail: textFieldLoginEmail.text!, password: textFieldLoginPassword.text!)
   }
   
   @IBAction func signUpDidTouch(_ sender: AnyObject) {
@@ -71,6 +72,16 @@ class LoginViewController: UIViewController {
     alert.addAction(cancelAction)
     
     present(alert, animated: true, completion: nil)
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    FIRAuth.auth()!.addStateDidChangeListener{ auth, user in
+      if user != nil {
+        self.performSegue(withIdentifier: self.loginToList, sender: nil)
+      }
+    }
   }
   
 }
