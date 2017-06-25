@@ -82,6 +82,14 @@ class GroceryListTableViewController: UITableViewController {
       currentUserRef.setValue(self.user.email)
       currentUserRef.onDisconnectRemoveValue()
     }
+    
+    usersRef.observe(.value, with: { snapshot in
+      if snapshot.exists() {
+        self.userCountBarButtonItem?.title = snapshot.childrenCount.description
+      } else {
+        self.userCountBarButtonItem?.title = "0"
+      }
+    })
   }
   
   // MARK: UITableView Delegate methods
